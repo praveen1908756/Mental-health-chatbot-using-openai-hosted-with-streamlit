@@ -1,0 +1,48 @@
+Follow these steps to create your own fine tuned model:
+
+-> pip install --upgrade openai (in gitbash)
+-> export OPENAI_API_KEY="<OPENAI_API_KEY>" (to set your key)
+-> Create your training data: (example)
+	{"prompt": "<prompt text>", "completion": "<ideal generated text>"}
+	{"prompt": "<prompt text>", "completion": "<ideal generated text>"}
+	{"prompt": "<prompt text>", "completion": "<ideal generated text>"}
+	...
+-> openai tools fine_tunes.prepare_data -f <LOCAL_FILE> (data preparation)
+-> openai api fine_tunes.create -t <TRAIN_FILE_ID_OR_PATH> -m <BASE_MODEL> (create fine tuned model)
+
+------------------------
+
+API key:
+// unique for everyone
+
+our fine-tuned model:
+davinci:ft-personal:mental-health-model-2023-04-10-11-36-17
+
+export:
+export OPENAI_API_KEY="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"
+
+-------------------------
+
+To use a fine-tuned model:
+
+1)
+python:
+import os
+import openai
+openai.api_key = "<ENTER YOUR API KEY HERE>"
+openai.Completion.create(
+  model="davinci:ft-personal:mental-health-model-2023-04-10-11-36-17",
+  prompt="<USER_PROMPT>",
+  max_tokens=2000,
+  temperature=0
+)
+
+2)
+openai client:
+openai api completions.create -m "text-davinci-003" -p "Hi, i'm, feeling sad today."
+
+3) (RECOMMENDED)
+streamlit command:
+python -m streamlit run finalChatBot_Streamlit.py
+
+-------------------------
